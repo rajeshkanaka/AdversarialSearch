@@ -1,0 +1,5 @@
+{
+  "name": "Interactive Adversarial Search",
+  "description": "An interactive web application to help engineering students learn the concepts of Adversarial Search from Chapter 5 of 'Artificial Intelligence: A Modern Approach'. This app provides visualizations for algorithms like Minimax and Alpha-Beta Pruning.",
+  "requestFramePermissions": []
+}
