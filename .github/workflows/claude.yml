@@ -29,14 +29,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0                   # full history if pushing
-          token: ${{ secrets.MY_MY_MY_GITHUB_TOKEN }}  # use the job's write-scoped token
+          token: ${{ secrets.MY_GITHUB_TOKEN }}  # use the job's write-scoped token
 
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@beta
         with:
-          # Pass the workflow token explicitly as the action requests
-          MY_MY_MY_GITHUB_TOKEN: ${{ secrets.MY_MY_MY_GITHUB_TOKEN }}
+          # Provide a GitHub token so the action skips OIDC/app exchange
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
 
           # Anthropic OAuth token (your existing secret)
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
@@ -45,9 +45,19 @@ jobs:
           additional_permissions: |
             actions: read
 
+          # Triggers and behavior
+          trigger_phrase: "@claude"
+          label_trigger: "claude"
+          branch_prefix: "claude/"
+          mode: "tag"
+          use_bedrock: false
+          use_vertex: false
+          timeout_minutes: 30
+          use_sticky_comment: false
+          use_commit_signing: false
+
           # Other optional inputs...
           # model: "claude-opus-4-1-20250805"
-          # trigger_phrase: "/claude"
           # assignee_trigger: "claude-bot"
           # allowed_tools: "Bash(npm install),Bash(npm run build),Bash(npm run test:*),Bash(npm run lint:*)"
           # custom_instructions: |
