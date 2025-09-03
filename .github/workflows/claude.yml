@@ -29,14 +29,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0                   # full history if pushing
-          token: ${{ secrets.MY_GITHUB_TOKEN }}  # use the job's write-scoped token
+          token: ${{ github.token }}       # use the workflow's scoped token
 
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@beta
         with:
           # Provide a GitHub token so the action skips OIDC/app exchange
-          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
 
           # Anthropic OAuth token (your existing secret)
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
